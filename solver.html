@@ -1,0 +1,41 @@
+<!doctype html>
+<html ng-app="storeApp">
+  <head>
+    <script src="http://code.jquery.com/jquery-2.2.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
+    <script src="minesweeper.js"></script>
+    <script src="game-solver.js"></script>
+
+  </head>
+
+  <body >
+    <h1>Win/Lose Ratio</h1>
+    <div class="ratio">
+    </div>
+
+    <h1>Time to run 100,000 games in seconds</h1>
+    <div class="time">
+    </div>
+  </body>
+
+  <script>
+    var runs = 100000
+    var wins = 0
+
+    var startDate = new Date();
+
+    for(var i=0; i< runs; i++){
+      var game = new Game(10,10,5)
+      var solver = new GameSolver(game)
+      if(solver.solve()){
+        wins++;
+      }
+    }
+
+    var endDate = new Date();
+
+    $('.ratio').html(wins/runs)
+    $('.time').html((endDate.getTime() - startDate.getTime())/ 1000)
+  </script>
+
+</html>
