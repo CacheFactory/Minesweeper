@@ -45,7 +45,6 @@ var SquareView = Backbone.View.extend({
     }else{
       icon = icons.blank;
     }
-    console.log(icon)
     $(this.el).html("<img height=20 width=20 src='"+icon+"' />");
   },
 

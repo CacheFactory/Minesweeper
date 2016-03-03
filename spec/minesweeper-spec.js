@@ -1,3 +1,5 @@
+var Game = require('../js/minesweeper.js')
+
 describe('Minesweeper', function(){
   it("should create a board", function() {
     var game = new Game(10,10,5)

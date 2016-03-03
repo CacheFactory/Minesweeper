@@ -188,3 +188,6 @@ Square.prototype.expose = function(exposedSquares){
     this.view.render();
   }
 }
+if(typeof module !== 'undefined' && module.exports){
+  module.exports = Game;
+}

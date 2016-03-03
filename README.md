@@ -7,4 +7,11 @@ index.html
 solver.html
 
 ### Specs
-specs.html
+```
+  jasmine
+```
+
+### Node command-line solver for 100,000 games
+```
+  node js/node-solver.js 100000
+```

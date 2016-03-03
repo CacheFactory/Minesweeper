@@ -28,7 +28,7 @@ GameSolver.prototype.solve = function(){
       squareSums[probability] = square;
     }
 
-    var keys = _.keys(squareSums);
+    var keys = Object.keys(squareSums);
     var leastKey = Array.min(keys);
     var squareToPick = squareSums[leastKey];
     
@@ -37,4 +37,8 @@ GameSolver.prototype.solve = function(){
 
   var win = this.game.status() == 'win';
   return win;
+}
+
+if(typeof module !== 'undefined' && module.exports){
+  module.exports = GameSolver;
 }
