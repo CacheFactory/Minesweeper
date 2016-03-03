@@ -37,6 +37,22 @@ describe('Minesweeper', function(){
     expect(game.lose).toBe(true)
   });
 
+  it("should display all mines on lose", function() {
+    spyOn(Game.prototype, 'createMineIndixies').and.returnValue([1,2,3,4,5])
+    var game = new Game(10,10,5)
+    game.grid[0][1].expose()
+
+    expect(game.win).toBe(false)
+    expect(game.lose).toBe(true)
+
+    for(var r in game.grid){
+      for(var c in game.grid[r]){
+        var square = game.grid[r][c]
+        expect(square.exposed).toBe(true)
+      }
+    }
+  });
+
   it("should calculate neighboring squares correctly", function() {
     var game = new Game(10,10,10)
     

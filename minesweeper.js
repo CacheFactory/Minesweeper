@@ -28,6 +28,13 @@ Game.prototype.neighbors = function(row, column) {
 }
 
 Game.prototype.gameOver = function(){
+  var squares = this.openSquares()
+
+  for(var i in squares){
+    var square = squares[i]  
+    square.gameOverExpose()
+  }
+
   this.lose = true;
   this.win = false;
   if(this.view){
@@ -130,6 +137,7 @@ var Square = function(hasMine, game){
   this.hasMine = hasMine;
   this.number = 0;
   this.exposed = false;
+  this.exploded = false;
   this.game = game;
 }
 
@@ -144,14 +152,21 @@ Square.prototype.calculateNumber = function(){
   },0)
 }
 
+Square.prototype.gameOverExpose = function(){
+  this.exposed = true;
+  // simple event
+  if(this.view){
+    this.view.render();
+  }
+}
+
 Square.prototype.expose = function(exposedSquares){
   exposedSquares = exposedSquares || [];
-  
   exposedSquares.push(this);
 
   if(this.hasMine){
+    this.exploded = true;
     this.game.gameOver();
-    return
   }else{
     if(!this.exposed){
       this.exposed = true;
@@ -159,7 +174,7 @@ Square.prototype.expose = function(exposedSquares){
     }
   }
 
-  if(this.number == 0){
+  if(this.number == 0 && !this.hasMine){
     for(var i in this.neighbors){
       var neighborSquare = this.neighbors[i];
 

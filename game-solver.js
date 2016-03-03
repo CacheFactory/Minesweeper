@@ -18,7 +18,6 @@ GameSolver.prototype.solve = function(){
         }else{
           return memo;
         }
-        
       },0)
       sum = sum;
       squareSums[sum] = square;

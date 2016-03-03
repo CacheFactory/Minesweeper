@@ -34,8 +34,10 @@ var SquareView = Backbone.View.extend({
   render: function(){
     var icon = 'blank';
     if(this.square.exposed){
-      if(this.square.hasMine){
+      if(this.square.exploded){
         icon = icons.explodedBomb;
+      }else if(this.square.hasMine){
+        icon = icons.exposedBomb;
       }else{
         icon = icons.bombs[this.square.number];
       }
@@ -43,9 +45,8 @@ var SquareView = Backbone.View.extend({
     }else{
       icon = icons.blank;
     }
-
+    console.log(icon)
     $(this.el).html("<img height=20 width=20 src='"+icon+"' />");
-    
   },
 
   onClick: function(){
@@ -54,6 +55,9 @@ var SquareView = Backbone.View.extend({
 });
 
 var GameView = Backbone.View.extend({
+  events:{
+    'click .reset' : 'onResetClick'
+  },
 
   initialize: function(options){
     this.createNewGame();
@@ -63,16 +67,18 @@ var GameView = Backbone.View.extend({
     this.game = new Game(10,10,5, this);
   },
 
-  gameOver: function(){
-    alert('game over');
+  onResetClick: function(){
     this.createNewGame();
     this.render();
+    $(this.el).find('.status').html('')
+  },
+
+  gameOver: function(){
+    $(this.el).find('.status').html('LOSE')
   },
 
   gameWin: function(){
-    alert('win');
-    this.createNewGame();
-    this.render();
+    $(this.el).find('.status').html('WIN')
   },
 
   render: function(){
@@ -89,6 +95,8 @@ var GameView = Backbone.View.extend({
       }
       html.append(row);
     }
+    html.append('<button class="reset">RESET</button>')
+    html.append('<h2 class="status"></h2>');
     $(this.el).html(html);
   }
 
