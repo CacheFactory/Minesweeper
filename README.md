@@ -15,5 +15,5 @@ solver.html
 
 ### Node command-line solver for 100,000 games
 ```
-  node js/node-solver.js 100000
+  node js/commane-line-solver.js 100000
 ```
