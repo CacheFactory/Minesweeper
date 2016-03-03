@@ -64,7 +64,7 @@ var GameView = Backbone.View.extend({
   },
 
   createNewGame: function(){
-    this.game = new Game(10,10,5, this);
+    this.game = new Game(10,10,10, this);
   },
 
   onResetClick: function(){

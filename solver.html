@@ -9,33 +9,41 @@
   </head>
 
   <body >
-    <h1>Win/Lose Ratio</h1>
+    <h1 class="calculate">Calculating...</h1>
+    <h2>Win/Lose Ratio</h2>
     <div class="ratio">
     </div>
 
-    <h1>Time to run 100,000 games in seconds</h1>
+    <h2>Time to run 100,000 games in seconds</h2>
     <div class="time">
     </div>
+
+    <script>
+      var calculate = function() {
+        var runs = 100000
+        var wins = 0
+
+        var startDate = new Date();
+
+        for(var i=0; i< runs; i++){
+          var game = new Game(10,10,10)
+          var solver = new GameSolver(game)
+          if(solver.solve()){
+            wins++;
+          }
+        }
+
+        var endDate = new Date();
+        $('.calculate').remove()
+        $('.ratio').html(wins/runs)
+        $('.time').html((endDate.getTime() - startDate.getTime())/ 1000)
+      };
+
+      setTimeout(calculate, 0) // to render dom once
+
+    </script>
   </body>
 
-  <script>
-    var runs = 100000
-    var wins = 0
-
-    var startDate = new Date();
-
-    for(var i=0; i< runs; i++){
-      var game = new Game(10,10,5)
-      var solver = new GameSolver(game)
-      if(solver.solve()){
-        wins++;
-      }
-    }
-
-    var endDate = new Date();
-
-    $('.ratio').html(wins/runs)
-    $('.time').html((endDate.getTime() - startDate.getTime())/ 1000)
-  </script>
+  
 
 </html>

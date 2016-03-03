@@ -12,15 +12,20 @@ GameSolver.prototype.solve = function(){
     var openSquares = this.game.openSquares();
     for(var i in openSquares){
       var square = openSquares[i];
-      var sum = square.neighbors.reduce(function(memo, square){
-        if(square.exposed){
-          return memo + square.number;
-        }else{
-          return memo;
+      var exposedCount = 0;
+      var sum = 0;
+      var neighborsCount = square.neighbors.length;
+
+      for(var j in square.neighbors){
+        var neighborSquare = square.neighbors[j]
+        if(neighborSquare.exposed){
+          exposedCount++
+          sum = sum + square.number
         }
-      },0)
-      sum = sum;
-      squareSums[sum] = square;
+      }
+
+      var probability = (exposedCount - sum) /neighborsCount
+      squareSums[probability] = square;
     }
 
     var keys = _.keys(squareSums);
